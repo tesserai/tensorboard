@@ -35,7 +35,7 @@ from tensorboard.backend import application
 from tensorboard.backend.event_processing import event_file_inspector as efi
 from tensorboard.plugins.audio import audio_plugin
 from tensorboard.plugins.core import core_plugin
-from tensorboard.plugins.debugger import debugger_plugin as debugger_plugin_lib
+# from tensorboard.plugins.debugger import debugger_plugin as debugger_plugin_lib
 from tensorboard.plugins.distribution import distributions_plugin
 from tensorboard.plugins.graph import graphs_plugin
 from tensorboard.plugins.histogram import histograms_plugin
@@ -240,11 +240,12 @@ def main(unused_argv=None):
     efi.inspect(FLAGS.logdir, event_file, FLAGS.tag)
     return 0
   else:
-    def ConstructDebuggerPluginWithGrpcPort(context):
-      debugger_plugin = debugger_plugin_lib.DebuggerPlugin(context)
-      if FLAGS.debugger_data_server_grpc_port is not None:
-        debugger_plugin.listen(FLAGS.debugger_data_server_grpc_port)
-      return debugger_plugin
+    pass
+    # def ConstructDebuggerPluginWithGrpcPort(context):
+    #   debugger_plugin = debugger_plugin_lib.DebuggerPlugin(context)
+    #   if FLAGS.debugger_data_server_grpc_port is not None:
+    #     debugger_plugin.listen(FLAGS.debugger_data_server_grpc_port)
+    #   return debugger_plugin
 
     plugins = [
         core_plugin.CorePlugin,
@@ -258,7 +259,7 @@ def main(unused_argv=None):
         projector_plugin.ProjectorPlugin,
         text_plugin.TextPlugin,
         profile_plugin.ProfilePlugin,
-        ConstructDebuggerPluginWithGrpcPort,
+        # ConstructDebuggerPluginWithGrpcPort,
     ]
 
     tb = create_tb_app(plugins)
